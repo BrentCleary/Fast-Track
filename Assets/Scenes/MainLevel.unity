@@ -593,8 +593,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1026604675}
   - component: {fileID: 1026604677}
+  - component: {fileID: 1026604680}
   - component: {fileID: 1026604676}
   - component: {fileID: 1026604678}
+  - component: {fileID: 1026604679}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -707,6 +709,41 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &1026604679
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026604674}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.83, z: 0}
+--- !u!114 &1026604680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026604674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99bdcb5e637ed2f4180166b601c643d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1807207081
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,9 +773,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 011d8152a1af9794aa31402a793db26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 5318939709218657751, guid: cf598cac289ea5744a4f90aff33d39ac,
-    type: 3}
+  obstaclePrefabs:
+  - {fileID: 5318939709218657751, guid: cf598cac289ea5744a4f90aff33d39ac, type: 3}
+  - {fileID: 4280763687038955078, guid: 257193ba1aa3c6c498ab79853b4ebeca, type: 3}
+  - {fileID: 4663949017020705808, guid: 7262b2d430614a344a97344b5e6419d6, type: 3}
+  - {fileID: 5054932681008180017, guid: e74323cce16b1574aa30feff71692458, type: 3}
+  - {fileID: 8708090238849619558, guid: aedc31fe505b56a48ab0c83cb32ec320, type: 3}
   obstacleSpawnTime: 3
+  obstacleParent: {fileID: 431892491}
+  spawnWidth: 4
 --- !u!4 &1807207083
 Transform:
   m_ObjectHideFlags: 0
@@ -748,7 +791,7 @@ Transform:
   m_GameObject: {fileID: 1807207081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 40}
+  m_LocalPosition: {x: 0, y: 5, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
