@@ -194,10 +194,11 @@ MonoBehaviour:
     type: 3}
   appleSpawnChance: 0.3
   coinSpawnChance: 0.3
+  coinSeperationLength: 2
   lanes:
-  - -2.5
+  - -3
   - 0
-  - 2.5
+  - 3
 --- !u!1001 &492598102093398174
 PrefabInstance:
   m_ObjectHideFlags: 0
