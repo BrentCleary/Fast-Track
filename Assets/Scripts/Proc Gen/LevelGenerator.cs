@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject chunkPrefab;
+	[SerializeField] CameraController cameraController;
+	[SerializeField] GameObject chunkPrefab;
     [SerializeField] int startingChunksAmount = 12;
     [SerializeField] Transform chunkParent;
     [SerializeField] float chunkLength = 10f;
@@ -31,11 +33,11 @@ public class LevelGenerator : MonoBehaviour
         {
             moveSpeed = minMoveSpeed;
         }
-		Debug.Log("Z Gravity Before: " + Physics.gravity.z);
     
         Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
-	
-        Debug.Log("Z Gravity Before: " + Physics.gravity.z);
+
+		cameraController.ChangeCameraFOV(speedAmount);
+
 	}
 
 	void SpawnStartingChunks()
