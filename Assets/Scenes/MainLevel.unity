@@ -483,6 +483,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 219535942}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &759557737 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1014860696115371117, guid: dcbc89efbe5bd174b99e07c76bd0b6bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 219535942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &771557560
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +620,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1867356575}
@@ -744,6 +750,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bdcb5e637ed2f4180166b601c643d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 759557737}
+  colissionCooldown: 1
 --- !u!1 &1807207081
 GameObject:
   m_ObjectHideFlags: 0

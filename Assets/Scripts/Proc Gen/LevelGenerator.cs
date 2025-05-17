@@ -9,14 +9,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform chunkParent;
     [SerializeField] float chunkLength = 10f;
     [SerializeField] float moveSpeed = 8f;
-    [SerializeField] Vector3 chunkStartingPos;
+    [SerializeField] float minMoveSpeed = 2f;
 
-
-
-    //GameObject[] chunks = new GameObject[12];
     List<GameObject> chunks = new List<GameObject>();
 
-    // Start is called before the first frame update
     public void Start()
 	{
 		SpawnStartingChunks();
@@ -26,6 +22,21 @@ public class LevelGenerator : MonoBehaviour
     {
         MoveChunks();
     }
+
+    public void ChangeChunkMoveSpeed(float speedAmount)
+    {
+        moveSpeed += speedAmount;
+
+        if(moveSpeed < minMoveSpeed)
+        {
+            moveSpeed = minMoveSpeed;
+        }
+		Debug.Log("Z Gravity Before: " + Physics.gravity.z);
+    
+        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
+	
+        Debug.Log("Z Gravity Before: " + Physics.gravity.z);
+	}
 
 	void SpawnStartingChunks()
 	{

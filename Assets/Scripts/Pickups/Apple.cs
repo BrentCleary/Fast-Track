@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Rendering;
+using UnityEngine;
+
+public class Apple : Pickup
+{
+
+	LevelGenerator levelGenerator;
+	[SerializeField] float adjustChangeMoveSpeedAmount = 3f;
+
+	void Start()
+	{
+		levelGenerator = FindFirstObjectByType<LevelGenerator>();
+	}
+
+	protected override void OnPickup()
+	{
+		levelGenerator.ChangeChunkMoveSpeed(adjustChangeMoveSpeedAmount);
+
+		Debug.Log("Power up!");
+	}
+}
