@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class Apple : Pickup
 {
-
-	LevelGenerator levelGenerator;
 	[SerializeField] float adjustChangeMoveSpeedAmount = 3f;
 
-	void Start()
+	LevelGenerator levelGenerator;
+
+	public void Init(LevelGenerator levelGenerator)
 	{
-		levelGenerator = FindFirstObjectByType<LevelGenerator>();
+		this.levelGenerator = levelGenerator;
 	}
 
 	protected override void OnPickup()
 	{
 		levelGenerator.ChangeChunkMoveSpeed(adjustChangeMoveSpeedAmount);
 
-		Debug.Log("Power up!");
 	}
 }
