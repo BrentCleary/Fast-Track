@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using TMPro;
 using UnityEngine;
 
@@ -8,10 +9,13 @@ public class GameManager : MonoBehaviour
 	[SerializeField] PlayerController playerController;
 	[SerializeField] TMP_Text timeText;
 	[SerializeField] GameObject gameOverText;
-	[SerializeField] float startTime = 5f;
+	[SerializeField] float startTime = 60f;
 
 	float timeLeft;
 	bool gameOver = false;
+
+	public bool GameOver => gameOver;
+
 
 	void Start()
     {
@@ -23,7 +27,12 @@ public class GameManager : MonoBehaviour
 		DecreaseTime();
 	}
 
-	private void DecreaseTime()
+    public void IncreaseTime(float amount)
+    {
+        timeLeft += amount;
+	}
+
+	void DecreaseTime()
 	{
 		if (gameOver) return;
 
@@ -32,11 +41,16 @@ public class GameManager : MonoBehaviour
 
 		if (timeLeft <= 0f)
 		{
-			GameOver();
+			PlayerGameOver();
 		}
 	}
 
-	void GameOver()
+    public bool ReturnGameOver()
+    {
+		return gameOver;
+	}
+
+	void PlayerGameOver()
     {
 		gameOver = true;
 		playerController.enabled = false;
