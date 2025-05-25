@@ -5,15 +5,19 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
 	[SerializeField] float checkpointTimeExtension = 5f;
+	[SerializeField] float obstacleDecreaseTimeAmount = .2f;
+
 
 	GameManager gameManager;
+	ObstacleSpawner obstacleSpawner;
 
 	const string playerString = "Player";
 
 	// Start is called before the first frame update
 	void Start()
-    {
+  {
 		gameManager = FindFirstObjectByType<GameManager>();
+		obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
 	}
 
     // Update is called once per frame
@@ -22,7 +26,7 @@ public class CheckPoint : MonoBehaviour
         if(other.CompareTag(playerString))
         {
 			gameManager.IncreaseTime(checkpointTimeExtension);
-			Debug.Log("CheckPoint Reached");
+			obstacleSpawner.DecreaseObstacleSpawnTime(obstacleDecreaseTimeAmount);
 		}
 			//Debug.Log("CheckPoint Reached");
 
