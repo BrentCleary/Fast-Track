@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class Chunk : MonoBehaviour
 {
+    [Header("Spawn Prefabs")]
     [SerializeField] GameObject fencePrefab;
     [SerializeField] GameObject applePrefab;
     [SerializeField] GameObject coinPrefab;
 
-
+    [Header("Item Spawn Parameters")]
     [SerializeField] float appleSpawnChance = .3f;
     [SerializeField] float coinSpawnChance = .5f;
     [SerializeField] float coinSeperationLength = 2;
-
 	[SerializeField] float[] lanes = { -2.5f, 0f, 2.5f };
 
 	LevelGenerator levelGenerator;
 	ScoreManager scoreManager;
 
 	List<int> availableLanes = new List<int> {0, 1, 2};
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        SpawnFences();
+		SpawnFences();
         SpawnApple();
         SpawnCoins();
     }
@@ -38,18 +38,38 @@ public class Chunk : MonoBehaviour
     void SpawnFences()
     {
         int fencesToSpawn = Random.Range(0, lanes.Length);
+		int selectedLane;
+        
+		List<int> fenceList = new List<int>();
 
-        for (int i = 0; i < fencesToSpawn; i++)
+		for (int i = 0; i < fencesToSpawn; i++)
 		{
 			if (availableLanes.Count <= 0) break;
 
-			int selectedLane = SelectLane();
+			selectedLane = SelectLane();
 
 			Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
 			Instantiate(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+
 		}
+
 	}
 
+    void PreventDoubleLanes()
+    {
+        // check if adjacent fences have spawned
+            // check if two fences have spawned one fence is [1]
+            // if so
+                // prevent [0][1] sequence || [1][2] sequence to follow
+    }
+
+    int SelectLane()
+	{
+		int randomLaneIndex = Random.Range(0, availableLanes.Count);
+		int selectedLane = availableLanes[randomLaneIndex];
+		availableLanes.RemoveAt(randomLaneIndex);
+		return selectedLane;
+	}
 
 	void SpawnApple()
     {
@@ -61,6 +81,7 @@ public class Chunk : MonoBehaviour
         Apple newApple = Instantiate(applePrefab, spawnPosition, Quaternion.identity, this.transform).GetComponent<Apple>();
 		newApple.Init(levelGenerator);
 	}
+
 
 	void SpawnCoins()
     {
@@ -82,12 +103,5 @@ public class Chunk : MonoBehaviour
 		}
     }
 
-    int SelectLane()
-	{
-		int randomLaneIndex = Random.Range(0, availableLanes.Count);
-		int selectedLane = availableLanes[randomLaneIndex];
-		availableLanes.RemoveAt(randomLaneIndex);
-		return selectedLane;
-	}
 
 }

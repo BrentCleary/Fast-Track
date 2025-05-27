@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 557197364}
   - component: {fileID: 557197363}
   m_Layer: 0
-  m_Name: Fog Volume
+  m_Name: Fog Volume_Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5610,7 +5610,7 @@ Transform:
   m_GameObject: {fileID: 557197362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 35}
+  m_LocalPosition: {x: 0, y: -35, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11215,7 +11215,7 @@ GameObject:
   - component: {fileID: 1560307568}
   - component: {fileID: 1560307567}
   m_Layer: 0
-  m_Name: Fog Volume (1)
+  m_Name: Fog Volume_Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16349,7 +16349,7 @@ Transform:
   m_GameObject: {fileID: 1807207081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 40}
+  m_LocalPosition: {x: 0, y: 5, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16419,6 +16419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1942646767}
   scoreText: {fileID: 1590317719}
+  playerScore: 0
 --- !u!4 &1942646766
 Transform:
   m_ObjectHideFlags: 0
@@ -16450,6 +16451,7 @@ MonoBehaviour:
   timeText: {fileID: 1306379379}
   gameOverText: {fileID: 1658252323}
   startTime: 30
+  playerScore: 0
 --- !u!1 &1992039184
 GameObject:
   m_ObjectHideFlags: 0

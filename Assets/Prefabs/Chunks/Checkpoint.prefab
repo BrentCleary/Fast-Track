@@ -873,7 +873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f386ff0fd0eb4ce459286fec8876abde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointTimeExtension: 5
+  checkpointTimeExtension: 4
+  obstacleDecreaseTimeAmount: 0.2
 --- !u!65 &6343536702680079329
 BoxCollider:
   m_ObjectHideFlags: 0

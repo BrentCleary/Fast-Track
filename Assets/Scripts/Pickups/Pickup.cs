@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public abstract class Pickup : MonoBehaviour
 {
+
+	/* DEV NOTES
+
+
+	*/
+
     [SerializeField] float rotationSpeed = 100f;
 
     const string playerString = "Player";

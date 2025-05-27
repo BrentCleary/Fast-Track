@@ -5,6 +5,12 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Coin : Pickup
 {
+
+	/* DEV NOTES
+
+
+	*/
+
 	[SerializeField] int scoreAmount = 100;
 
 	ScoreManager scoreManager;

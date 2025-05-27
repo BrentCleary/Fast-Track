@@ -5,55 +5,55 @@ using UnityEngine.Rendering.Universal;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [Header("References")]
+	[Header("References")]
 	[SerializeField] CameraController cameraController;
 	[SerializeField] GameObject[] chunkPrefabs;
 	[SerializeField] GameObject checkpointChunkPrefab;
 	[SerializeField] Transform chunkParent;
 	[SerializeField] ScoreManager scoreManager;
 
-    [Header("Level Settings")]
-    [Tooltip("The amount of chunks we start with")]
-    [SerializeField] int startingChunksAmount = 12;
+	[Header("Level Settings")]
+	[Tooltip("The amount of chunks we start with")]
+	[SerializeField] int startingChunksAmount = 12;
 	[SerializeField] int checkpointChunkInterval = 8;
-    [Tooltip("Do not change chunk length value unless chunk prefab size reflects change")]
-    [SerializeField] float chunkLength = 10f;
-    [SerializeField] float moveSpeed = 8f;
-    [SerializeField] float minMoveSpeed = 2f;
-    [SerializeField] float maxMoveSpeed = 20f;
-    [SerializeField] float minGravityZ = -22f;
-    [SerializeField] float maxGravityZ = -2f;
+	[Tooltip("Do not change chunk length value unless chunk prefab size reflects change")]
+	[SerializeField] float chunkLength = 10f;
+	[SerializeField] float moveSpeed = 8f;
+	[SerializeField] float minMoveSpeed = 6f;
+	[SerializeField] float maxMoveSpeed = 26f;
+	[SerializeField] float minGravityZ = -22f;
+	[SerializeField] float maxGravityZ = -6f;
 
-    List<GameObject> chunks = new List<GameObject>();
+	List<GameObject> chunks = new List<GameObject>();
 	int chunksSpawned = 0;
+
 
 	public void Start()
 	{
 		SpawnStartingChunks();
 	}
 
-    public void Update()
-    {
-        MoveChunks();
-    }
+	public void Update()
+	{
+		MoveChunks();
+	}
 
-    public void ChangeChunkMoveSpeed(float speedAmount)
-    {
+
+	public void ChangeChunkMoveSpeed(float speedAmount)
+	{
 		float newMoveSpeed = moveSpeed + speedAmount;
 		newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed);
 
-        if(newMoveSpeed != moveSpeed)
-        {
-            moveSpeed = newMoveSpeed;
+		if(newMoveSpeed != moveSpeed)
+		{
+			moveSpeed = newMoveSpeed;
 
 			float newGravityZ = Physics.gravity.z - speedAmount;
 			newGravityZ = Mathf.Clamp(newGravityZ, minGravityZ, maxGravityZ);
-            Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
+			Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
 
-            cameraController.ChangeCameraFOV(speedAmount);
+			cameraController.ChangeCameraFOV(speedAmount);
 		}
-
-
 	}
 
 	void SpawnStartingChunks()
@@ -73,7 +73,7 @@ public class LevelGenerator : MonoBehaviour
 		GameObject newChunkGO = Instantiate(chunkToSpawn, chunkSpawnPos, Quaternion.identity, chunkParent);
 		chunks.Add(newChunkGO);
 		
-        Chunk newChunk = newChunkGO.GetComponent<Chunk>();
+    Chunk newChunk = newChunkGO.GetComponent<Chunk>();
 		newChunk.Init(this, scoreManager);
 
 		chunksSpawned++;
@@ -99,35 +99,34 @@ public class LevelGenerator : MonoBehaviour
 	{
 		float spawnPositionZ;
 		
-        if (chunks.Count == 0)
+    if(chunks.Count == 0)
 		{
 			spawnPositionZ = transform.position.z;
 		}
 		else
 		{
-            spawnPositionZ = chunks[chunks.Count - 1].transform.position.z + chunkLength;
+      spawnPositionZ = chunks[chunks.Count - 1].transform.position.z + chunkLength;
 		}
 
 		return spawnPositionZ;
 	}
 
-    void MoveChunks()
-    {
-        for (int i = 0; i < chunks.Count; i++)
-        {
-            GameObject chunk = chunks[i];
+	void MoveChunks()
+	{
+		for (int i = 0; i < chunks.Count; i++)
+		{
+			GameObject chunk = chunks[i];
 
-            chunk.transform.Translate(-transform. forward * (moveSpeed * Time.deltaTime));
+			chunk.transform.Translate(-transform. forward * (moveSpeed * Time.deltaTime));
 
-            if(chunk.transform.position.z <= Camera.main.transform.position.z - chunkLength)
-            {
-                chunks.Remove(chunk);
-                Destroy(chunk);
-                SpawnChunk();
-            };
+			if(chunk.transform.position.z <= Camera.main.transform.position.z - chunkLength)
+			{
+				chunks.Remove(chunk);
+				Destroy(chunk);
+				SpawnChunk();
+			};
 
-            
-        }
-    }
+		}
+	}
 
 }
