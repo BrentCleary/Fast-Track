@@ -28,7 +28,7 @@ public class Coin : Pickup
 	protected override void OnPickup()
 	{
 		scoreManager.IncreaseScore(scoreAmount);
-		Debug.Log("Add 100 points");
+		// Debug.Log("Add 100 points");
 	}
 
 }

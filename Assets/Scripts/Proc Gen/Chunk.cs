@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Chunk : MonoBehaviour
@@ -19,9 +20,12 @@ public class Chunk : MonoBehaviour
 	ScoreManager scoreManager;
 
 	List<int> availableLanes = new List<int> {0, 1, 2};
-    
-    // Start is called before the first frame update
-    void Start()
+
+	List<int> prevFenceList = new List<int>();
+	List<List<int>> doubleFences = new List<List<int>>() { new List<int>() { 0, 1 }, new List<int>() { 1, 2 } };
+
+	// Start is called before the first frame update
+	void Start()
     {
 		SpawnFences();
         SpawnApple();
@@ -35,34 +39,6 @@ public class Chunk : MonoBehaviour
 	}
 
 
-    void SpawnFences()
-    {
-        int fencesToSpawn = Random.Range(0, lanes.Length);
-		int selectedLane;
-        
-		List<int> fenceList = new List<int>();
-
-		for (int i = 0; i < fencesToSpawn; i++)
-		{
-			if (availableLanes.Count <= 0) break;
-
-			selectedLane = SelectLane();
-
-			Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-			Instantiate(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
-
-		}
-
-	}
-
-    void PreventDoubleLanes()
-    {
-        // check if adjacent fences have spawned
-            // check if two fences have spawned one fence is [1]
-            // if so
-                // prevent [0][1] sequence || [1][2] sequence to follow
-    }
-
     int SelectLane()
 	{
 		int randomLaneIndex = Random.Range(0, availableLanes.Count);
@@ -70,6 +46,49 @@ public class Chunk : MonoBehaviour
 		availableLanes.RemoveAt(randomLaneIndex);
 		return selectedLane;
 	}
+
+
+    void SpawnFences()
+    {
+		List<int> fenceLaneList = SelectFenceLanes();
+
+		foreach(int lane in fenceLaneList)
+        {
+            Vector3 spawnPosition = new Vector3(lanes[lane], transform.position.y, transform.position.z);
+            Instantiate(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+        }
+	}
+
+
+    List<int> SelectFenceLanes()
+    {
+		List<int> fenceLaneList = new List<int>();
+        
+        int fencesToSpawn = Random.Range(0, lanes.Length);  // Lanes.Length = 3. Exclusive. fencesToSpawn maxes at 2.
+		int selectedLane;
+
+		for (int i = 0; i < fencesToSpawn; i++)
+		{
+			selectedLane = SelectLane();
+			fenceLaneList.Add(selectedLane);
+		}
+
+        if(IsDoubleFence(prevFenceList))
+        {
+			Debug.Log("<<<<< doubleFences Found >>>>>");
+			fenceLaneList = SelectFenceLanes();
+		}
+
+		prevFenceList = fenceLaneList;
+
+		return fenceLaneList;
+	}
+
+    bool IsDoubleFence(List<int> fenceList)
+    {
+        return doubleFences.Any(df => df.OrderBy(x => x).SequenceEqual(fenceList.OrderBy(x => x)));
+    }
+
 
 	void SpawnApple()
     {

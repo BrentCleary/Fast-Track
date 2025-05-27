@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
 
     IEnumerator ChangeFOVRoutine(float speedAmount)
     {
-		Debug.Log("Current FOV: " + cinemachineVirtualCamera.m_Lens.FieldOfView);
+		// Debug.Log("Current FOV: " + cinemachineVirtualCamera.m_Lens.FieldOfView);
 
         float startFOV = cinemachineVirtualCamera.m_Lens.FieldOfView;
         float targetFOV = Mathf.Clamp(startFOV + speedAmount * zoomSpeedModfier, minFOV, maxFOV);
@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
             yield return null;
         }
 
-		Debug.Log("Adjusted FOV: " + cinemachineVirtualCamera.m_Lens.FieldOfView);
+		// Debug.Log("Adjusted FOV: " + cinemachineVirtualCamera.m_Lens.FieldOfView);
 
 		cinemachineVirtualCamera.m_Lens.FieldOfView = targetFOV;
 
